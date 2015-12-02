@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Zelda.Components;
 
 namespace Zelda
 {
@@ -11,6 +12,7 @@ namespace Zelda
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        private BaseObject _player;
 
         public Game1()
         {
@@ -18,6 +20,7 @@ namespace Zelda
             Content.RootDirectory = "Content";
             this.graphics.PreferredBackBufferHeight = 240;
             this.graphics.PreferredBackBufferWidth = 320;
+            _player = new BaseObject();
         }
 
         /// <summary>
@@ -41,6 +44,7 @@ namespace Zelda
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            _player.AddComponent(new Sprite(Content.Load<Texture2D>("link"), 14,16,new Vector2(20,20)));
 
             // TODO: use this.Content to load your game content here
         }
@@ -77,7 +81,11 @@ namespace Zelda
         {
             GraphicsDevice.Clear(new Color(196,207,161));
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin();
+
+            _player.Draw(spriteBatch);
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

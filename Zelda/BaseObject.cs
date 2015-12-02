@@ -16,7 +16,20 @@ namespace Zelda
         }
 
         public TComponentType GetComponent<TComponentType>(ComponentType componentType) where TComponentType : Component {
-            return _components.Find(c => c.ComponentType == componentType) as ComponentType;
+            return _components.Find(c => c.ComponentType == componentType) as TComponentType;
+        }
+
+        public void AddComponent(Component component) {
+            _components.Add(component);
+            component.Initialize(this);
+        }
+
+        public void AddComponents(List<Component> components) {
+            _components.AddRange(components);
+            foreach (var component in components)
+            {
+                component.Initialize(this);
+            }
         }
 
         public void RemoveComponent(Component component) {

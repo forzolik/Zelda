@@ -1,4 +1,3 @@
-﻿public class ComponentType {
+﻿public enum ComponentType {
     Sprite
-
 }
