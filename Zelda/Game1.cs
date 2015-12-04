@@ -1,7 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Diagnostics;
 using Zelda.Components;
+using Zelda.Manager;
 
 namespace Zelda
 {
@@ -13,6 +16,7 @@ namespace Zelda
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private BaseObject _player;
+        private ManagerInput _managerInput;
 
         public Game1()
         {
@@ -21,6 +25,7 @@ namespace Zelda
             this.graphics.PreferredBackBufferHeight = 240;
             this.graphics.PreferredBackBufferWidth = 320;
             _player = new BaseObject();
+            _managerInput = new ManagerInput();
         }
 
         /// <summary>
@@ -34,7 +39,14 @@ namespace Zelda
             // TODO: Add your initialization logic here
 
             base.Initialize();
+
+           
+
+
+
         }
+
+       
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -44,7 +56,9 @@ namespace Zelda
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            _player.AddComponent(new Sprite(Content.Load<Texture2D>("link"), 14,16,new Vector2(20,20)));
+            _player.AddComponent(new Sprite(Content.Load<Texture2D>("link_full"), 16,16,new Vector2(20,20)));
+            _player.AddComponent(new PlayerInput());
+            _player.AddComponent(new Animation(16, 16));
 
             // TODO: use this.Content to load your game content here
         }
@@ -68,7 +82,8 @@ namespace Zelda
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            _managerInput.Update(gameTime.ElapsedGameTime.Milliseconds);
+            _player.Update(gameTime.ElapsedGameTime.Milliseconds);
 
             base.Update(gameTime);
         }
