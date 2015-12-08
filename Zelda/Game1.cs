@@ -17,15 +17,19 @@ namespace Zelda
         SpriteBatch spriteBatch;
         private BaseObject _player;
         private ManagerInput _managerInput;
+        private ManagerMap _managerMap;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
             this.graphics.PreferredBackBufferHeight = 240;
             this.graphics.PreferredBackBufferWidth = 320;
             _player = new BaseObject();
             _managerInput = new ManagerInput();
+            _managerMap = new ManagerMap("test");
+            
         }
 
         /// <summary>
@@ -56,9 +60,13 @@ namespace Zelda
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            _managerMap.LoadContent(Content);
+
             _player.AddComponent(new Sprite(Content.Load<Texture2D>("link_full"), 16,16,new Vector2(20,20)));
             _player.AddComponent(new PlayerInput());
             _player.AddComponent(new Animation(16, 16));
+            _player.AddComponent(new Collision(_managerMap));
 
             // TODO: use this.Content to load your game content here
         }
@@ -84,6 +92,7 @@ namespace Zelda
 
             _managerInput.Update(gameTime.ElapsedGameTime.Milliseconds);
             _player.Update(gameTime.ElapsedGameTime.Milliseconds);
+            _managerMap.Update(gameTime.ElapsedGameTime.Milliseconds);
 
             base.Update(gameTime);
         }
@@ -98,7 +107,9 @@ namespace Zelda
 
             spriteBatch.Begin();
 
+            _managerMap.Draw(spriteBatch);
             _player.Draw(spriteBatch);
+            
 
             spriteBatch.End();
 

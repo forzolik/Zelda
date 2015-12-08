@@ -35,3 +35,31 @@
 /processorParam:TextureFormat=Color
 /build:link_full.png
 
+#begin overworld_map.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:overworld_map.png
+
+#begin overworld_tiles.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:TextureFormat=Color
+/build:overworld_tiles.png
+
+#begin test_map.xml
+/copy:test_map.xml
+
+#begin test_map_collision.xml
+/copy:test_map_collision.xml
+

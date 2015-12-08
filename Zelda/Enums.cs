@@ -1,7 +1,8 @@
 ﻿public enum ComponentType {
     Sprite,
     PlayerInput,
-    Animation
+    Animation,
+    Collision
 }
 
 public enum Input {
