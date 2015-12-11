@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Diagnostics;
 using Zelda.Components;
+using Zelda.Components.Enemies;
+using Zelda.Components.Movement;
 using Zelda.Manager;
 
 namespace Zelda
@@ -16,6 +18,8 @@ namespace Zelda
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private BaseObject _player;
+        private BaseObject _testNPC;
+        private BaseObject _testEnemy;
         private ManagerInput _managerInput;
         private ManagerMap _managerMap;
 
@@ -27,6 +31,8 @@ namespace Zelda
             this.graphics.PreferredBackBufferHeight = 240;
             this.graphics.PreferredBackBufferWidth = 320;
             _player = new BaseObject();
+            _testNPC = new BaseObject();
+            _testEnemy = new BaseObject();
             _managerInput = new ManagerInput();
             _managerMap = new ManagerMap("test");
             
@@ -63,10 +69,21 @@ namespace Zelda
 
             _managerMap.LoadContent(Content);
 
-            _player.AddComponent(new Sprite(Content.Load<Texture2D>("link_full"), 16,16,new Vector2(20,20)));
+            _player.AddComponent(new Sprite(Content.Load<Texture2D>("link_full"), 16,16,new Vector2(16,16)));
             _player.AddComponent(new PlayerInput());
             _player.AddComponent(new Animation(16, 16));
             _player.AddComponent(new Collision(_managerMap));
+
+            _testNPC.AddComponent(new Sprite(Content.Load<Texture2D>("Marin"), 16, 16, new Vector2(16*4, 16*2)));
+            _testNPC.AddComponent(new AIMovementRandom(200));
+            _testNPC.AddComponent(new Animation(16, 16));
+            _testNPC.AddComponent(new Collision(_managerMap));
+
+            _testEnemy.AddComponent(new Sprite(Content.Load<Texture2D>("Octorok"), 16, 16, new Vector2(16 * 1, 16 * 7)));
+            _testEnemy.AddComponent(new AIMovementRandom(200));
+            _testEnemy.AddComponent(new Animation(16, 16));
+            _testEnemy.AddComponent(new Collision(_managerMap));
+            _testEnemy.AddComponent(new Octorok(_player, Content.Load<Texture2D>("Octorok_bullet"), _managerMap));
 
             // TODO: use this.Content to load your game content here
         }
@@ -92,6 +109,8 @@ namespace Zelda
 
             _managerInput.Update(gameTime.ElapsedGameTime.Milliseconds);
             _player.Update(gameTime.ElapsedGameTime.Milliseconds);
+            _testNPC.Update(gameTime.ElapsedGameTime.Milliseconds);
+            _testEnemy.Update(gameTime.ElapsedGameTime.Milliseconds);
             _managerMap.Update(gameTime.ElapsedGameTime.Milliseconds);
 
             base.Update(gameTime);
@@ -109,7 +128,8 @@ namespace Zelda
 
             _managerMap.Draw(spriteBatch);
             _player.Draw(spriteBatch);
-            
+            _testNPC.Draw(spriteBatch);
+            _testEnemy.Draw(spriteBatch);
 
             spriteBatch.End();
 

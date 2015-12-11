@@ -51,7 +51,7 @@ namespace Zelda.Components
                     y = 1.5f;
                     break;
              }
-            if (collision == null || collision.CheckCollision(new Rectangle((int) (sprite.Position.X + x), (int) (sprite.Position.Y + y), sprite.Width, sprite.Height)))
+            if (collision == null || !collision.CheckCollision(new Rectangle((int) (sprite.Position.X + x), (int) (sprite.Position.Y + y), sprite.Width, sprite.Height)))
             {
                 sprite.Move(x, y);
             }

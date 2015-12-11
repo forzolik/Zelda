@@ -2,7 +2,9 @@
     Sprite,
     PlayerInput,
     Animation,
-    Collision
+    Collision,
+    AIMovement,
+    EnemyOctorok
 }
 
 public enum Input {

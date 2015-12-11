@@ -27,6 +27,7 @@ namespace Zelda
 
         public TComponentType GetComponent<TComponentType>(ComponentType componentType) where TComponentType : Component
         {
+            if (_baseObject == null) return null;  //My add
             return _baseObject.GetComponent<TComponentType>(componentType);
         }
 

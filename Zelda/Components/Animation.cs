@@ -20,7 +20,7 @@ namespace Zelda.Components
         private int _width;
         private int _height;
         public Rectangle TextureRectangle { get; set; }
-        public Direction _currentDirection;
+        public Direction CurrentDirection;
         private State _currentState;
         private double _counter;
         private int _anumationIndex;
@@ -59,18 +59,18 @@ namespace Zelda.Components
 
         public void ResetCounter(State state, Direction direction)
         {
-            if (_currentDirection != direction)
+            if (CurrentDirection != direction)
             {
                 _counter = 1000;
                 _anumationIndex = 0;
             }
             _currentState = state;
-            _currentDirection = direction;
+            CurrentDirection = direction;
         }
 
         private void ChangeState()
         {
-            switch (_currentDirection)
+            switch (CurrentDirection)
             {
                 case Direction.Left:
                     TextureRectangle = new Rectangle(_width * _anumationIndex, _height * 2, _width, _height);

@@ -42,9 +42,13 @@
     <Compile Include="Component.cs" />
     <Compile Include="Components\Animation.cs" />
     <Compile Include="Components\Collision.cs" />
+    <Compile Include="Components\Enemies\Octorok.cs" />
+    <Compile Include="Components\Enemies\OctorokBullet.cs" />
+    <Compile Include="Components\Movement\AIMovementRandom.cs" />
     <Compile Include="Components\PlayerInput.cs" />
     <Compile Include="Components\Sprite.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="Manager\ManagerFunction.cs" />
     <Compile Include="Manager\ManagerMap.cs" />
     <Compile Include="Map\Tile.cs" />
     <Compile Include="Map\TileCollision.cs" />
@@ -71,6 +75,7 @@
     <Content Include="Content\test_map.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Content\test_map_collision.xml" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
