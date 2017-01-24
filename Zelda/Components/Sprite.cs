@@ -32,15 +32,20 @@ namespace Zelda.Components
 
         public override void Draw(SpriteBatch spritebatch)
         {
+            var camera = GetComponent<Camera>(ComponentType.Camera);
+            Vector2 position;
+            if (!(camera != null && camera.GetPosition(Position, out position)))
+                position = Position;
+
             var animation = GetComponent<Animation>(ComponentType.Animation);
             if (animation != null)
             {
-                spritebatch.Draw(_texture, new Rectangle((int)Position.X, (int)Position.Y, Width, Height),animation.TextureRectangle, Color.White);
+                spritebatch.Draw(_texture, new Rectangle((int)position.X, (int)position.Y, Width, Height),animation.TextureRectangle, Color.White);
             }
         
             else
             {
-                spritebatch.Draw(_texture, new Rectangle((int)Position.X, (int)Position.Y, Width, Height), Color.White);
+                spritebatch.Draw(_texture, new Rectangle((int)position.X, (int)position.Y, Width, Height), Color.White);
             }
         }
 

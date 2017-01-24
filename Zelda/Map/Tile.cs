@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Zelda.Manager;
 
 namespace Zelda.Map
 {
@@ -23,13 +24,16 @@ namespace Zelda.Map
         private int _animationIndex;
 
         public string TextureName { get; set; }
-        private Texture2D _texture;
+        protected Texture2D _texture;
+        public ManagerCamera ManagerCamera { get; set; }
+
+        public Vector2 Position { get { return new Vector2(XPos * 16, YPos * 16); } }
 
         public Tile() {
 
         }
 
-        public Tile( int xPos, int yPos, int zPos, List<TileFrame> tileFrames, int animationSpeed, string textureName)
+        public Tile( int xPos, int yPos, int zPos, List<TileFrame> tileFrames, int animationSpeed, string textureName, ManagerCamera managerCamera)
         {
             XPos = xPos;
             YPos = yPos;
@@ -38,6 +42,7 @@ namespace Zelda.Map
             TileFrames = tileFrames;
             AnimationSpeed = animationSpeed;
             _animationIndex = 0;
+            ManagerCamera = managerCamera;
         }
 
         public void LoadContent(ContentManager content)
@@ -63,8 +68,12 @@ namespace Zelda.Map
 
         public void Draw(SpriteBatch spritebatch)
         {
-            spritebatch.Draw(_texture, new Rectangle(XPos* Width, YPos*Height, Width, Height), 
-                new Rectangle(TileFrames[_animationIndex].TextureXPos * Width + TileFrames[_animationIndex].TextureXPos + 1, TileFrames[_animationIndex].TextureYPos * Height + TileFrames[_animationIndex].TextureYPos + 1, Width, Height), Color.White);
+            var position = ManagerCamera.WorldToScreenPosition(Position);
+            if (ManagerCamera.InScreenCheck(position))
+            {
+                spritebatch.Draw(_texture, new Rectangle((int)position.X, (int)position.Y, Width, Height),
+                    new Rectangle(TileFrames[_animationIndex].TextureXPos * Width + TileFrames[_animationIndex].TextureXPos + 1, TileFrames[_animationIndex].TextureYPos * Height + TileFrames[_animationIndex].TextureYPos + 1, Width, Height), Color.White);
+            }
         }
     }
 }

@@ -22,19 +22,21 @@ namespace Zelda
         private BaseObject _testEnemy;
         private ManagerInput _managerInput;
         private ManagerMap _managerMap;
+        private ManagerCamera _managerCamera;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
-            this.graphics.PreferredBackBufferHeight = 240;
-            this.graphics.PreferredBackBufferWidth = 320;
+            this.graphics.PreferredBackBufferHeight = 128;
+            this.graphics.PreferredBackBufferWidth = 160;
             _player = new BaseObject();
             _testNPC = new BaseObject();
             _testEnemy = new BaseObject();
             _managerInput = new ManagerInput();
-            _managerMap = new ManagerMap("test");
+            _managerCamera = new ManagerCamera();
+            _managerMap = new ManagerMap("test", _managerCamera);
             
         }
 
@@ -73,17 +75,20 @@ namespace Zelda
             _player.AddComponent(new PlayerInput());
             _player.AddComponent(new Animation(16, 16));
             _player.AddComponent(new Collision(_managerMap));
+            _player.AddComponent(new Camera(_managerCamera));
 
             _testNPC.AddComponent(new Sprite(Content.Load<Texture2D>("Marin"), 16, 16, new Vector2(16*4, 16*2)));
             _testNPC.AddComponent(new AIMovementRandom(200));
             _testNPC.AddComponent(new Animation(16, 16));
             _testNPC.AddComponent(new Collision(_managerMap));
+            _testNPC.AddComponent(new Camera(_managerCamera));
 
             _testEnemy.AddComponent(new Sprite(Content.Load<Texture2D>("Octorok"), 16, 16, new Vector2(16 * 1, 16 * 7)));
             _testEnemy.AddComponent(new AIMovementRandom(200));
             _testEnemy.AddComponent(new Animation(16, 16));
             _testEnemy.AddComponent(new Collision(_managerMap));
             _testEnemy.AddComponent(new Octorok(_player, Content.Load<Texture2D>("Octorok_bullet"), _managerMap));
+            _testEnemy.AddComponent(new Camera(_managerCamera));
 
             // TODO: use this.Content to load your game content here
         }
@@ -112,6 +117,7 @@ namespace Zelda
             _testNPC.Update(gameTime.ElapsedGameTime.Milliseconds);
             _testEnemy.Update(gameTime.ElapsedGameTime.Milliseconds);
             _managerMap.Update(gameTime.ElapsedGameTime.Milliseconds);
+            _managerCamera.Update(gameTime.ElapsedGameTime.Milliseconds);
 
             base.Update(gameTime);
         }

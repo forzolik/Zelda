@@ -14,12 +14,14 @@ namespace Zelda.Manager
         private List<Tile> _tiles;
         private List<TileCollision> _tileCollisions;
         private string _mapname;
+        private ManagerCamera _managerCamera;
 
-        public ManagerMap(string mapName)
+        public ManagerMap(string mapName, ManagerCamera managerCamera)
         {
             _mapname = mapName;
             _tiles = new List<Tile>();
             _tileCollisions = new List<TileCollision>();
+            _managerCamera = managerCamera;
         }
 
         public void LoadContent(ContentManager content)
@@ -35,6 +37,7 @@ namespace Zelda.Manager
                 foreach (var tile in _tiles)
                 {
                     tile.LoadContent(content);
+                    tile.ManagerCamera = _managerCamera;
                 }
             }
 
@@ -43,6 +46,7 @@ namespace Zelda.Manager
             if (tileCollision != null)
             {
                 _tileCollisions = tileCollision;
+                _tileCollisions.ForEach(t => t.ManagerCamera = _managerCamera);
             }
         }
 

@@ -4,7 +4,8 @@
     Animation,
     Collision,
     AIMovement,
-    EnemyOctorok
+    EnemyOctorok,
+    Camera
 }
 
 public enum Input {

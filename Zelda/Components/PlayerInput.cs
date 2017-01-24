@@ -55,6 +55,18 @@ namespace Zelda.Components
             {
                 sprite.Move(x, y);
             }
+
+            var camera = GetComponent<Camera>(ComponentType.Camera);
+            if (camera == null)
+                return;
+            Vector2 position;
+            if (!camera.GetPosition(sprite.Position, out position))
+            {
+                var animation = GetComponent<Animation>(ComponentType.Animation);
+                camera.MoveCamera(animation.CurrentDirection);
+            }
+
+
         }
 
         public override void Draw(SpriteBatch spritebatch)
