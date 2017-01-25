@@ -119,6 +119,8 @@ namespace Zelda
             _managerMap.Update(gameTime.ElapsedGameTime.Milliseconds);
             _managerCamera.Update(gameTime.ElapsedGameTime.Milliseconds);
 
+			//some comment
+
             base.Update(gameTime);
         }
 
