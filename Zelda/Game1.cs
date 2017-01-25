@@ -120,6 +120,7 @@ namespace Zelda
             _managerCamera.Update(gameTime.ElapsedGameTime.Milliseconds);
 
 			//some comment
+			//second
 
             base.Update(gameTime);
         }
